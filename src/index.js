@@ -5,11 +5,13 @@ import thunk from 'redux-thunk'
 import {Provider} from 'react-redux'
 import {BrowserRouter as Router, Route, Redirect, Switch} from 'react-router-dom'
 
-import Login from './components/login/login'
-import Register from './components/register/register'
+import 'api/api_config'
+import reducer from 'store/index'
 
-import reducer from './reducer'
-import './api_config'
+import AuthRoute from 'base/authRoute/authRoute'
+import Login from 'components/login/login'
+import Register from 'components/register/register'
+
 
 const store = createStore(
   reducer,
@@ -19,7 +21,8 @@ const store = createStore(
 ReactDOM.render(
   <Provider store={store}>
     <Router>
-      <div>
+      <div className="app-wrapper">
+        <AuthRoute></AuthRoute>
         <Route path="/login" component={Login}></Route>
         <Route path="/register" component={Register}></Route>
       </div>
