@@ -15,9 +15,9 @@ import Register from 'components/register/register'
 
 const store = createStore(
   reducer,
-  compose(applyMiddleware(thunk)), 
+  compose(applyMiddleware(thunk), 
   window.devToolsExtension ? window.devToolsExtension() : f => f
-)
+))
 ReactDOM.render(
   <Provider store={store}>
     <Router>

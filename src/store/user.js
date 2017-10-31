@@ -4,13 +4,14 @@ import {getRedirectPath} from 'common/util'
 // action type
 const REGISTER_SUCCESS = 'REGISTER_SUCCESS'
 const ERROR_MSG = 'ERROR_MSG'
+const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
+const LODA_DATA = 'LODA_DATA'
 
 const initState = {
   redirectTo: '',
   isAuth: false,
   msg: '',
   user: '',
-  pwd: '',
   type: ''
 }
 
@@ -22,6 +23,18 @@ export function user(state = initState, action) {
         ...state,
         isAuth: true,
         redirectTo: getRedirectPath(action.payload),
+        ...action.payload
+      }
+    case LOGIN_SUCCESS: 
+      return {
+        ...state,
+        isAuth: true,
+        redirectTo: getRedirectPath(action.payload),
+        ...action.payload
+      }
+    case LODA_DATA:
+      return {
+        ...state,
         ...action.payload
       }
     case ERROR_MSG:
@@ -45,14 +58,33 @@ export function register({user, pwd, repeatPwd, type}) {
   }
 
   // 中间件异步，需要返回函数
-  return dispatch => {
-    axios.post('/user/register', {user, pwd, type}).then((res) => {
-      if (res.status === 200 && res.data.code === 0) {
-        dispatch(registerSuccess({user, pwd, type}))
-      } else {
-        dispatch(errorMsg(res.data.msg))
-      }
-    })
+  return (dispatch) => axios.post('/user/register', {user, pwd, type}).then(res => {
+    if (res.status === 200 && res.data.code === 0) {
+      dispatch(registerSuccess({user, pwd, type}))
+    } else {
+      dispatch(errorMsg(res.data.msg))
+    }
+  }).catch(err => dispatch(errorMsg(err)))
+}
+
+export function login ({user, pwd}) {
+  if (!user || !pwd ) {
+    return errorMsg('用户名／密码必须输入')
+  }
+  // 中间件异步，需要返回函数
+  return (dispatch) => axios.post('/user/login', {user, pwd}).then(res => {
+    if (res.status === 200 && res.data.code === 0) {
+      dispatch(loginSuccess(res.data.data))
+    } else {
+      dispatch(errorMsg(res.data.msg))
+    }
+  }).catch(err => dispatch(errorMsg(err)))
+}
+
+export function loadData(data) {
+  return {
+    type: LODA_DATA,
+    payload: data
   }
 }
 
@@ -66,6 +98,13 @@ function errorMsg(msg) {
 function registerSuccess(data) {
   return {
     type: REGISTER_SUCCESS,
+    payload: data
+  }
+}
+
+function loginSuccess(data) {
+  return {
+    type: LOGIN_SUCCESS,
     payload: data
   }
 }

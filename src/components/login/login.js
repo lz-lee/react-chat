@@ -1,6 +1,9 @@
 import React, {Component}from 'react'
-import Logo from 'base/logo/logo'
+import {Redirect} from 'react-router-dom'
+import {connect} from 'react-redux'
 import {List, InputItem, WhiteSpace, WingBlank, Button} from 'antd-mobile'
+import Logo from 'base/logo/logo'
+import {login} from 'store/user'
 
 class Login extends Component {
   constructor(props) {
@@ -24,13 +27,15 @@ class Login extends Component {
   handleRegister() {
     this.props.history.push('/register')
   }
-  handleLogin() {
 
+  handleLogin() {
+    this.props.login(this.state)
   }
   
   render() {
     return (
       <div className="login-wrapper">
+        {this.props.redirectTo ? <Redirect to={this.props.redirectTo}/> : null}
         <Logo/>
         <WingBlank>
           <List>
@@ -38,6 +43,7 @@ class Login extends Component {
               onChange={v => this.handleChange('user', v)}
             >用户名</InputItem>
             <InputItem
+              type='password'
               onChange={v => this.handleChange('pwd', v)}
             >密码</InputItem>
           </List>
@@ -51,4 +57,5 @@ class Login extends Component {
   }
 }
 
+Login = connect(state => state.user, {login})(Login)
 export default Login
