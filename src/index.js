@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom';
 import {createStore, applyMiddleware, compose} from 'redux'
 import thunk from 'redux-thunk'
 import {Provider} from 'react-redux'
-import {BrowserRouter as Router, Route, Redirect, Switch} from 'react-router-dom'
+import {BrowserRouter as Router, Route} from 'react-router-dom'
 
 import 'api/api_config'
-import reducer from 'store/index'
+import reducer from 'store/reducer'
 
 import AuthRoute from 'base/authRoute/authRoute'
 import Login from 'components/login/login'
