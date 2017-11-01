@@ -1,11 +1,17 @@
 import React, {Component} from 'react'
+import propTypes from 'prop-types'
 import {List, Grid} from 'antd-mobile'
 
 class AvatarSelect extends Component {
+  static propTypes = {
+    selectAvatar: propTypes.func.isRequired
+  }
+
   constructor(props) {
     super(props)
     this.state = {}
   }
+
   render() {
     const avatarList = ['圣诞老人', '雪人', 'archer', 'biker', 'bodyboard', 'bull', 'diving', 'fencing', 'fish', 'niu', 'werr', 'windsurf'].map(v => ({
       icon: require(`common/image/${v}.png`),

@@ -12,18 +12,22 @@ import AuthRoute from 'base/authRoute/authRoute'
 import Login from 'components/login/login'
 import Register from 'components/register/register'
 import Captaininfo from 'components/captaininfo/captaininfo'
+import Sailorinfo from 'components/sailorinfo/sailorinfo'
 
 const store = createStore(
   reducer,
   compose(applyMiddleware(thunk), 
   window.devToolsExtension ? window.devToolsExtension() : f => f
 ))
+
 ReactDOM.render(
   <Provider store={store}>
     <Router>
       <div className="app-wrapper">
         <AuthRoute></AuthRoute>
         <Switch>
+          <Route path="/captaininfo" component={Captaininfo}></Route>
+          <Route path="/sailorinfo" component={Sailorinfo}></Route>
           <Route path="/captaininfo" component={Captaininfo}></Route>
           <Route path="/login" component={Login}></Route>
           <Route path="/register" component={Register}></Route>
