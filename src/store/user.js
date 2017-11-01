@@ -1,15 +1,13 @@
 import axios from 'axios'
-import {getRedirectPath} from 'common/util'
+import {getRedirectPath} from 'common/js/util'
 
 // action type
-const REGISTER_SUCCESS = 'REGISTER_SUCCESS'
+const AUTH_SUCCESS = 'AUTH_SUCCESS'
 const ERROR_MSG = 'ERROR_MSG'
-const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 const LODA_DATA = 'LODA_DATA'
 
 const initState = {
   redirectTo: '',
-  isAuth: false,
   msg: '',
   user: '',
   type: ''
@@ -18,17 +16,9 @@ const initState = {
 // reducer
 export function user(state = initState, action) {
   switch (action.type) {
-    case REGISTER_SUCCESS:
+    case AUTH_SUCCESS:
       return {
         ...state,
-        isAuth: true,
-        redirectTo: getRedirectPath(action.payload),
-        ...action.payload
-      }
-    case LOGIN_SUCCESS: 
-      return {
-        ...state,
-        isAuth: true,
         redirectTo: getRedirectPath(action.payload),
         ...action.payload
       }
@@ -40,7 +30,6 @@ export function user(state = initState, action) {
     case ERROR_MSG:
       return {
         ...state,
-        isAuth: false,
         msg: action.msg
       }
     default:
@@ -56,11 +45,10 @@ export function register({user, pwd, repeatPwd, type}) {
   if (pwd !== repeatPwd) {
     return errorMsg('两次输入密码不同')
   }
-
   // 中间件异步，需要返回函数
   return (dispatch) => axios.post('/user/register', {user, pwd, type}).then(res => {
     if (res.status === 200 && res.data.code === 0) {
-      dispatch(registerSuccess({user, pwd, type}))
+      dispatch(authSuccess({user, pwd, type}))
     } else {
       dispatch(errorMsg(res.data.msg))
     }
@@ -71,10 +59,9 @@ export function login ({user, pwd}) {
   if (!user || !pwd ) {
     return errorMsg('用户名／密码必须输入')
   }
-  // 中间件异步，需要返回函数
   return (dispatch) => axios.post('/user/login', {user, pwd}).then(res => {
     if (res.status === 200 && res.data.code === 0) {
-      dispatch(loginSuccess(res.data.data))
+      dispatch(authSuccess(res.data.data))
     } else {
       dispatch(errorMsg(res.data.msg))
     }
@@ -88,6 +75,18 @@ export function loadData(data) {
   }
 }
 
+export function update(data) {
+  return dispatch => {
+    axios.post('/user/update', data).then((res) => {
+      if (res.status === 200 && res.data.code === 0) {
+        dispatch(authSuccess(res.data.data))
+      } else {
+        dispatch(errorMsg(res.data.msg))
+      }
+    }).catch((err) =>  dispatch(errorMsg(err)))
+  }
+}
+
 function errorMsg(msg) {
   return {
     type: ERROR_MSG,
@@ -95,16 +94,9 @@ function errorMsg(msg) {
   }
 }
 
-function registerSuccess(data) {
+function authSuccess(data) {
   return {
-    type: REGISTER_SUCCESS,
-    payload: data
-  }
-}
-
-function loginSuccess(data) {
-  return {
-    type: LOGIN_SUCCESS,
+    type: AUTH_SUCCESS,
     payload: data
   }
 }

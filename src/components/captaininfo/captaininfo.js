@@ -1,4 +1,7 @@
 import React, {Component} from 'react'
+import {connect} from 'react-redux'
+import {Redirect} from 'react-router-dom'
+import {update} from 'store/user'
 import {NavBar, Icon, List, InputItem, WhiteSpace, WingBlank, Button, TextareaItem} from 'antd-mobile'
 import AvatarSelect from 'base/avatarSelect/avatarSelect'
 
@@ -25,8 +28,11 @@ class Captaininfo extends Component {
   }
 
   render() {
+    const path = this.props.location.pathname
+    const redirect = this.props.redirectTo
     return (
       <div className="info-wrapper">
+        {redirect && redirect !== path ? <Redirect to={redirect}/> : null}
         <NavBar
           mode="dark"
           icon={<Icon type="left" />}
@@ -49,7 +55,7 @@ class Captaininfo extends Component {
             ></TextareaItem>
           </List>
           <WhiteSpace/>
-          <Button type="primary" onClick={this.handleLogin}>保存</Button>
+          <Button type="primary" onClick={() => this.props.update(this.state)}>保存</Button>
           <WhiteSpace/>
         </WingBlank>
       </div>
@@ -57,4 +63,5 @@ class Captaininfo extends Component {
   }
 }
 
+Captaininfo = connect(state => state.user, {update})(Captaininfo)
 export default Captaininfo
