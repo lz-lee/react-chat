@@ -64,6 +64,8 @@
 
     * Switch 只渲染命中的第一个子Route组件
 
+    * Route 不写path时，最后命中的总是该路由对应的组件，可用于404页面
+
 ### 4、 多个reducer，使用combineReducers合并
 
   ```

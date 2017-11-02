@@ -9,11 +9,25 @@ import 'api/api_config'
 import reducer from 'store/reducer'
 
 import AuthRoute from 'base/authRoute/authRoute'
-import Login from 'components/login/login'
+// import Login from 'components/login/login'
 import Register from 'components/register/register'
 import Captaininfo from 'components/captaininfo/captaininfo'
 import Sailorinfo from 'components/sailorinfo/sailorinfo'
+import Stat from 'base/stat/stat'
 
+// const Register = () => {
+//   import('components/register/register').then(m => (m))
+// }
+// const Captaininfo = () => {
+//   import('components/captaininfo/captaininfo').then(m => (m))
+// }
+// const Sailorinfo = () => {
+//   import('components/sailorinfo/sailorinfo').then(m => (m))
+// }
+// const Stat = () => {
+//   import('base/stat/stat').then(m => (m))
+// }
+import Login from 'common/js/lazyLoad.js'
 const store = createStore(
   reducer,
   compose(applyMiddleware(thunk), 
@@ -31,6 +45,7 @@ ReactDOM.render(
           <Route path="/captaininfo" component={Captaininfo}></Route>
           <Route path="/login" component={Login}></Route>
           <Route path="/register" component={Register}></Route>
+          <Route component={Stat}></Route>
         </Switch>
       </div>
     </Router>
