@@ -3,9 +3,9 @@ import {connect} from 'react-redux'
 import {getUserList} from 'store/chat'
 import UserInfo from 'base/userInfo/userInfo'
 
-class Captain extends Component {
+class Sailor extends Component {
   componentDidMount() {
-    this.props.getUserList('sailor')
+    this.props.getUserList('captain')
   }
   
   render() {
@@ -15,5 +15,5 @@ class Captain extends Component {
   }
 }
 
-Captain = connect(state => state.chat, {getUserList})(Captain)
-export default Captain
+Sailor = connect(state => state.chat, {getUserList})(Sailor)
+export default Sailor

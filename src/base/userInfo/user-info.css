@@ -1,0 +1,8 @@
+.card-list img{
+  width: 32px;
+  height: 32px;
+}
+.card-list .extra-wrapper{
+  display: flex;
+  justify-content: space-around;
+}

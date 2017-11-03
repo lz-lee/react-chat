@@ -8,6 +8,7 @@ import './stat.css'
 
 const NavLinkBar = LazyLoad({loader: () => import('../navLinkBar/navLinkBar')})
 const Captain = LazyLoad({loader: () => import('base/captain/captain')})
+const Sailor = LazyLoad({loader: () => import('base/sailor/sailor')})
 
 class Stat extends Component {
 
@@ -28,7 +29,7 @@ class Stat extends Component {
         text: '船长',
         icon: 'captain',
         title: '船长列表',
-        // component: Sailor,
+        component: Sailor,
         hide: type === 'captain'
       },
       {
