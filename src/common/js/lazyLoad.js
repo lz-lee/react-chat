@@ -1,16 +1,16 @@
 import React, {Component} from 'react'
 import Loadable from 'react-loadable'
-import Loading from 'base/loading/loading'
 
-
+export default (opts) => {
   const MyComponent = Loadable({
-    loader: () => import('components/login/login'),
-    loading: Loading
+    loading: () => null,
+    ...opts
   })
 
-  export default class LazyLoad extends Component {
+  class LazyLoad extends Component {
     render() {
-      return <MyComponent/>
+      return <MyComponent {...this.props}/>
     }
   }
-
+  return LazyLoad
+}

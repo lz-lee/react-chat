@@ -2,10 +2,12 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Switch, Route} from 'react-router-dom'
 import {NavBar} from 'antd-mobile'
-import NavLinkBar from '../navLinkBar/navLinkBar'
-import Captain from 'base/captain/captain'
 
+import LazyLoad from 'common/js/lazyLoad.js'
 import './stat.css'
+
+const NavLinkBar = LazyLoad({loader: () => import('../navLinkBar/navLinkBar')})
+const Captain = LazyLoad({loader: () => import('base/captain/captain')})
 
 class Stat extends Component {
 
