@@ -9,6 +9,8 @@ import './stat.less'
 const NavLinkBar = LazyLoad({loader: () => import('../navLinkBar/navLinkBar')})
 const Captain = LazyLoad({loader: () => import('base/captain/captain')})
 const Sailor = LazyLoad({loader: () => import('base/sailor/sailor')})
+const UserCenter = LazyLoad({loader: () => import('base/userCenter/userCenter')})
+
 
 class Stat extends Component {
 
@@ -44,7 +46,7 @@ class Stat extends Component {
         text: '我',
         icon: 'user-center',
         title: '个人中心',
-        // component: UserCenter
+        component: UserCenter
       },
     ]
     return (

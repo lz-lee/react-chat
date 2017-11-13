@@ -25,19 +25,17 @@ class UserInfo extends Component {
                 title={v.user}
                 thumb={require(`common/image/${v.avatar}.png`)}
                 extra={<div className="extra-wrapper">
-                        <span>职位:</span>
+                        {v.type === 'captain' ? <span>招人啦:</span> : <span>我可以胜任:</span>}
                         <span>{v.title}</span>
                       </div>}
               ></Header>
               <Body>
-                {v.type === 'captain' ? <div>公司: {v.company}</div> : null}
-                <div>
-                  <p>职位要求：</p>
-                  {v.desc.split('\n').map(d => (
-                    <p key={d}>{d}</p>
+                {v.company ? <p className="company">公司名称: {v.company}</p> : null}
+                <p className="desc">职位要求:</p>
+                {v.desc.split('\n').map(v => (
+                    <p key={v} className="desc-item">{v}</p>
                   ))}
-                </div>
-                {v.type === 'captain' ? <div>薪资: {v.money}</div> : null}
+                {v.money ? <p className="money">薪资: {v.money}</p> : null}
               </Body>
             </Card>
             <WhiteSpace></WhiteSpace>

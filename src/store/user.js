@@ -5,6 +5,7 @@ import {getRedirectPath} from 'common/js/util'
 const AUTH_SUCCESS = 'AUTH_SUCCESS'
 const ERROR_MSG = 'ERROR_MSG'
 const LODA_DATA = 'LODA_DATA'
+const LOGOUT = 'LOGOUT'
 
 const initState = {
   redirectTo: '',
@@ -31,6 +32,11 @@ export function user(state = initState, action) {
       return {
         ...state,
         msg: action.msg
+      }
+    case LOGOUT:
+      return {
+        ...initState,
+        redirectTo: '/login'
       }
     default:
       return state
@@ -85,6 +91,10 @@ export function update(data) {
       }
     }).catch((err) =>  dispatch(errorMsg(err)))
   }
+}
+
+export function logoutSubmit() {
+  return {type: LOGOUT}
 }
 
 function errorMsg(msg) {

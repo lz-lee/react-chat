@@ -22,7 +22,6 @@ Router.post('/login', function(req, res) {
       return res.json({code: 1, msg: '用户名或者密码错误'})
     }
     res.cookie('userid', doc._id, {
-      httpOnly: true,
       expires: new Date(Date.now() + 5 * 24 * 3600 * 1000)
     })
     return res.json({code: 0, data: doc})

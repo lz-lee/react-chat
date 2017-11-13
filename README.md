@@ -73,3 +73,41 @@
 
   export default combineReducers({reducer1, reducer2})
   ```
+
+### 5、高阶组件
+
+  * 属性代理
+
+    * 代码复用
+    
+    * 抽象逻辑
+
+    ```
+    function WrapperComponent(OldComponent) {
+      class newComponent extends React.Component {
+        render() {
+          return <OldComponent {...this.props}></OldComponent>
+        }
+      }
+    }
+    ```
+
+  * 反向继承
+
+    * 渲染劫持、修改生命周期
+
+    ```
+     function WrapperComponent(OldComponent) {
+       class newComponent extends OldComponent {
+
+         componentDidMount() {
+           // doing something
+         }
+
+         render() {
+           return <OldComponent></OldComponent>
+         }
+       }
+       return newComponent
+     }
+    ```

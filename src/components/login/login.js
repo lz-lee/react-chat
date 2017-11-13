@@ -33,9 +33,10 @@ class Login extends Component {
   }
   
   render() {
+    const {redirectTo, location: {pathname}} = this.props
     return (
       <div className="login-wrapper">
-        {this.props.redirectTo ? <Redirect to={this.props.redirectTo}/> : null}
+        {redirectTo && redirectTo !== pathname ? <Redirect to={this.props.redirectTo}/> : null}
         <Logo/>
         <WingBlank>
           <List>
