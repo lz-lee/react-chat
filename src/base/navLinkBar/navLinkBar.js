@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import propTypes from 'prop-types'
 import {withRouter} from 'react-router-dom'
 import {TabBar} from 'antd-mobile'
-import './navLink.css'
+import './navLink.less'
 
 class NavLinkBar extends Component {
   static propTypes = {

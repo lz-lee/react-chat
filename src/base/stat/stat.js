@@ -4,7 +4,7 @@ import {Switch, Route} from 'react-router-dom'
 import {NavBar} from 'antd-mobile'
 
 import LazyLoad from 'common/js/lazyLoad.js'
-import './stat.css'
+import './stat.less'
 
 const NavLinkBar = LazyLoad({loader: () => import('../navLinkBar/navLinkBar')})
 const Captain = LazyLoad({loader: () => import('base/captain/captain')})
