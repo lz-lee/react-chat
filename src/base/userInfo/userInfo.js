@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import propTypes from 'prop-types'
+import {withRouter} from 'react-router-dom'
 import {Card, WhiteSpace, WingBlank} from 'antd-mobile'
 import "./user-info.less"
 
@@ -12,14 +13,22 @@ class UserInfo extends Component {
     userList: []
   }
 
+  handleClick(v) {
+    this.props.history.push(`/chat/${v.user}`)
+  }
+
   render() {
     const Header = Card.Header
     const Body = Card.Body
     return (
       <WingBlank>
         <WhiteSpace></WhiteSpace>
-        {this.props.userList.map(v => (
-          v.avatar ? <div className="card-list" key={v._id}>
+        {this.props.userList.map(v => 
+        (v.avatar ?
+          <div
+            className="card-list"
+            key={v._id}
+            onClick={() => this.handleClick(v)}>
             <Card>
               <Header
                 title={v.user}
@@ -31,7 +40,7 @@ class UserInfo extends Component {
               ></Header>
               <Body>
                 {v.company ? <p className="company">公司名称: {v.company}</p> : null}
-                <p className="desc">职位要求:</p>
+                <p className="desc">{v.type === 'captain' ? '职位要求' : '我的水平'}:</p>
                 {v.desc.split('\n').map(v => (
                     <p key={v} className="desc-item">{v}</p>
                   ))}
@@ -45,5 +54,5 @@ class UserInfo extends Component {
     )
   }
 }
-
+UserInfo = withRouter(UserInfo)
 export default UserInfo

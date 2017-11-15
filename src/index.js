@@ -22,6 +22,7 @@ const Register = LazyLoad({loader: () => import('components/register/register')}
 const Captaininfo = LazyLoad({loader: () => import('components/captaininfo/captaininfo')})
 const Sailorinfo = LazyLoad({loader: () => import('components/sailorinfo/sailorinfo')})
 const Stat = LazyLoad({loader: () => import('base/stat/stat')})
+const Chat = LazyLoad({loader: () => import('components/chat/chat')})
 
 const store = createStore(
   reducer,
@@ -40,6 +41,7 @@ ReactDOM.render(
           <Route path="/captaininfo" component={Captaininfo}></Route>
           <Route path="/login" component={Login}></Route>
           <Route path="/register" component={Register}></Route>
+          <Route path="/chat/:user" component={Chat}></Route>
           <Route component={Stat}></Route>
         </Switch>
       </div>
