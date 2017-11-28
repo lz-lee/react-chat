@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Switch, Route} from 'react-router-dom'
+import {getMsgList, recvMsg} from 'store/chatM'
 import {NavBar} from 'antd-mobile'
 
 import LazyLoad from 'common/js/lazyLoad.js'
@@ -14,9 +15,16 @@ const UserCenter = LazyLoad({loader: () => import('base/userCenter/userCenter')}
 
 class Stat extends Component {
 
+  componentDidMount () {
+    if (!this.props.chatM.chatMsg.length) {
+      this.props.getMsgList()
+      this.props.recvMsg()
+    }
+  }
+
   render() {
     const {pathname} = this.props.location
-    const {type} = this.props
+    const {type} = this.props.user
     const navList = [
       {
         path: '/captain',
@@ -65,6 +73,6 @@ class Stat extends Component {
   }
 }
 
-Stat = connect(state => state.user)(Stat)
+Stat = connect(state => state, {getMsgList, recvMsg})(Stat)
 
 export default Stat

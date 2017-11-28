@@ -3,6 +3,7 @@ const utils = require('utility')
 const Router = express.Router()
 const model = require('./model')
 const User = model.getModel('user')
+const Chat = model.getModel('chat')
 const __filter = {'pwd': 0, '__v': 0}
 
 Router.get('/list', function(req, res) {
@@ -99,5 +100,26 @@ function md5Pwd(pwd) {
   return utils.md5(utils.md5(pwd + salt))
 }
 
+
+/**
+ * chat msg
+ */
+Router.get('/getMsgList', function(req, res) {
+  const {userid} = req.cookies
+  User.find({}, function(err, userDoc) {
+    let users = {}
+    userDoc.forEach(v => {
+      users[v._id] = {
+        name: v.user,
+        avatar: v.avatar
+      }
+    })
+    Chat.find({'$or': [{from: userid}, {to: userid}]}, function(err, doc) {
+       if (!err) {
+         return res.json({code: 0, data: doc, users: users})
+       }
+    })
+  })
+})
 
 module.exports = Router

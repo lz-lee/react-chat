@@ -37,7 +37,34 @@ const models = {
       type: String
     },
   },
-  chat: {}
+  chat: {
+    // 每次聊天唯一的标识， 为用户的id拼接字符串
+    'chatid': {
+      type: String,
+      require: true
+    },
+    'from': {
+      type: String,
+      require: true
+    },
+    'to': {
+      type: String,
+      require: true
+    },
+    'read': {
+      type: Boolean,
+      default: false
+    },
+    'content': {
+      type: String,
+      require: true
+    },
+    'create_time': {
+      type: Number,
+      require: true,
+      default: new Date().getTime()
+    },
+  }
 }
 
 for (let k in models) {
