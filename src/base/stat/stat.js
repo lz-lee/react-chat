@@ -11,6 +11,7 @@ const NavLinkBar = LazyLoad({loader: () => import('../navLinkBar/navLinkBar')})
 const Captain = LazyLoad({loader: () => import('base/captain/captain')})
 const Sailor = LazyLoad({loader: () => import('base/sailor/sailor')})
 const UserCenter = LazyLoad({loader: () => import('base/userCenter/userCenter')})
+const Msg = LazyLoad({loader: () => import('base/msg/msg')})
 
 
 class Stat extends Component {
@@ -45,9 +46,9 @@ class Stat extends Component {
       {
         path: '/msg',
         text: '消息',
-        icon: 'msg',
+        icon: 'msg',  
         title: '消息列表',
-        // component: Msg
+        component: Msg
       },
       {
         path: '/userCenter',

@@ -111,3 +111,48 @@
        return newComponent
      }
     ```
+
+### 6、性能优化
+
+  * 组件性能优化
+
+    * 传递更少的参数，减少传递数据的负担，使用同一份数据，而不是重新定义一份
+
+    * 减少组件渲染次数
+
+    * 绑定函数优化：在html结构里使用箭头函数和bind方式，在render过程中都会重新创建一个新函数。而在构造函数中绑定this，只会创建一次。
+
+    * 如果组件没有内部状态，只是根据props渲染：定制shouldComponentUpdate 或者 使用PureComponent
+
+      ```
+        ...
+
+        shouldComponentUpdate(nextProps, nextState) {
+          // 比较this.props 与 nextProps 是否相等
+          return true // 默认
+        }
+        ...
+      ```
+    * immutable.js
+  * redux 性能优化
+
+    * 使用reselect.js对计算过程做缓存
+
+
+  * 动画解决方案
+
+    * ReactCSSTransitionGroup
+
+    * Ant Motion
+
+  * react同构
+
+    * 首屏采用服务端渲染的dom结构
+
+    * ssr：
+
+      * build后node使用babel-node配置node里的react环境
+
+      * 修改客户端代码，抽离app组件，前后端共享
+
+      * 服务端生成DOM结构，渲染，加载build后的css 和 js

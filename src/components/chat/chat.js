@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {getMsgList, sendMsg, recvMsg} from 'store/chatM'
+import {getMsgList, sendMsg, recvMsg, readMsg} from 'store/chatM'
 import {List, InputItem, NavBar, Icon} from 'antd-mobile'
 import {getChatId} from 'common/js/util'
 import './chat.less'
@@ -18,6 +18,9 @@ class Chat extends Component {
       this.props.getMsgList()
       this.props.recvMsg()
     }
+    // 标记已读消息
+    const to = this.props.match.params.user
+    this.props.readMsg(to)
   }
 
   handleSubmit() {
@@ -87,5 +90,5 @@ class Chat extends Component {
   }
 }
 
-Chat = connect(state => state, {getMsgList, sendMsg, recvMsg})(Chat)
+Chat = connect(state => state, {getMsgList, sendMsg, recvMsg, readMsg})(Chat)
 export default Chat

@@ -88,3 +88,12 @@ export function recvMsg() {
     })
   }
 }
+
+export function readMsg(from) {
+  return (dispatch, getState) => {
+    axios.post('/user/readMsg', {from}).then(({data}) => {
+      const userid = getState().user._id
+      if (data.code === 0)
+    })
+  }
+}
